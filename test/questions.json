@@ -1,0 +1,22 @@
+[
+  {"text": "Does Node.js 22 ship with a built-in WebSocket client?"},
+  {"text": "What Chrome flag enables WebMCP for local testing?"},
+  {"text": "Is the MIT License OSI-approved?"},
+  {"text": "Which Python version first shipped the match statement (structural pattern matching)?"},
+  {"text": "Does Go 1.22 change the semantics of loop variables in for loops?"},
+  {"text": "What is the default port that PostgreSQL listens on?"},
+  {"text": "Which HTTP status code does RFC 9110 define for 'Too Many Requests'?"},
+  {"text": "Does Rust have a garbage collector?"},
+  {"text": "What is the maximum length of a Bluesky (AT Protocol) post in graphemes?"},
+  {"text": "Does Deno 2 support importing npm packages?"},
+  {"text": "Which company originally created Kubernetes?"},
+  {"text": "Does SQLite support the JSONB storage format?"},
+  {"text": "What year was the first version of the HTML5 specification published as a W3C Recommendation?"},
+  {"text": "Is Zig's standard library licensed under MIT?"},
+  {"text": "What is the default block gas limit target on Ethereum mainnet after the Dencun upgrade?"},
+  {"text": "Does Cloudflare Workers support the WebSocket API?"},
+  {"text": "Which version of TypeScript introduced the 'satisfies' operator?"},
+  {"text": "Does Docker Compose v2 require the 'version' key in compose files?"},
+  {"text": "What is the maximum size of a single DynamoDB item?"},
+  {"text": "Is WebGPU supported in Firefox stable on Windows?"}
+]
