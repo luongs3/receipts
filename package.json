@@ -1,0 +1,10 @@
+{
+  "name": "receipts",
+  "version": "1.0.0",
+  "description": "Receipts — an evidence-gated research board where humans pin questions and agents (via WebMCP) must file verified citations before they can answer.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "test": "node test/verify.test.mjs" },
+  "license": "MIT",
+  "engines": { "node": ">=20" }
+}

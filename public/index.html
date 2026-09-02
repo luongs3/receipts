@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Receipts — evidence-gated research board</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">🧾</span> <b>Receipts</b> <span class="tag">evidence-gated research board</span></div>
+  <div class="stats" id="stats"></div>
+  <div class="hdr-actions">
+    <button id="btn-sim" class="ghost" title="Runs a scripted agent through the same WebMCP tool functions">▶ Simulate agent</button>
+    <button id="btn-reset" class="ghost">Reset board</button>
+  </div>
+</header>
+
+<div id="banner" class="banner hidden"></div>
+
+<main>
+  <section class="board">
+    <form id="pin" class="pin">
+      <input id="pin-text" placeholder="Pin a question you want answered with receipts… (e.g. Does Deno 2 support npm packages?)" autocomplete="off">
+      <button>Pin question</button>
+    </form>
+    <div id="questions"></div>
+  </section>
+  <aside class="log">
+    <h3>Activity <span class="muted">human ✋ · agent 🤖</span></h3>
+    <div id="activity"></div>
+    <details class="tools">
+      <summary>Tools this page exposes to agents</summary>
+      <ul id="toollist"></ul>
+    </details>
+  </aside>
+</main>
+
+<footer>
+  Open this page in <b>ChatGPT's in-app browser</b> or <b>Chrome</b> with <code>chrome://flags/#enable-webmcp-testing</code>, then ask your agent to answer the pinned questions. The page verifies every citation before an answer can use it. · <a href="https://github.com/luongs3/receipts" target="_blank" rel="noopener">source</a>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
