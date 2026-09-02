@@ -41,27 +41,29 @@ async function control(q) {
 
 // ---------- RECEIPTS: tool loop against the live board ----------
 const TOOLS = [
+  { type: 'function', function: { name: 'read_source', description: 'Open a public web page and return its readable text (first ~12k chars). Use this to find an exact sentence to quote before calling submit_evidence — quotes must be verbatim.', parameters: { type: 'object', properties: { url: { type: 'string' } }, required: ['url'] } } },
   { type: 'function', function: { name: 'list_questions', description: 'List the questions on the board with evidence ids and their verified status.', parameters: { type: 'object', properties: {} } } },
   { type: 'function', function: { name: 'submit_evidence', description: 'Attach a citation. Give the URL and a short VERBATIM quote (10-40 words) from that page. The page fetches the URL and checks the quote is really there. Only VERIFIED evidence ids can be cited in propose_answer. If rejected, re-read the source and quote exactly.', parameters: { type: 'object', properties: { question_id: { type: 'string' }, url: { type: 'string' }, quote: { type: 'string' }, note: { type: 'string' } }, required: ['question_id', 'url', 'quote'] } } },
   { type: 'function', function: { name: 'propose_answer', description: 'Propose a 1-2 sentence answer. MUST cite verified evidence ids; otherwise rejected.', parameters: { type: 'object', properties: { question_id: { type: 'string' }, answer: { type: 'string' }, evidence_ids: { type: 'array', items: { type: 'string' } } }, required: ['question_id', 'answer', 'evidence_ids'] } } },
 ];
 async function receipts(q) {
   const msgs = [
-    { role: 'system', content: 'You are a research agent working on a shared board with a human. Use the tools. For the question given: submit_evidence with a real URL and an exact quote, and once it comes back verified, propose_answer citing that evidence id. If evidence is rejected, try a better quote or another source (max 4 evidence attempts). Stop when an answer is pending_review or you are out of attempts.' },
+    { role: 'system', content: 'You are a research agent working on a shared board with a human. Use the tools. For the question given: read_source on a page you expect to contain the answer, copy an exact sentence from the returned text, then submit_evidence with that URL and verbatim quote, and once it comes back verified, propose_answer citing that evidence id. If evidence is rejected, try a better quote or another source (max 4 evidence attempts). Stop when an answer is pending_review or you are out of attempts.' },
     { role: 'user', content: `Question id ${q._rcpId}: ${q.text}` },
   ];
   let attempts = 0, calls = 0, result = { status: 'no_answer' };
-  for (let step = 0; step < 10; step++) {
-    const m = await chat(msgs, TOOLS); msgs.push(m);
+  for (let step = 0; step < 14; step++) {
+    const m = await chat(msgs, TOOLS); msgs.push({ role: 'assistant', content: m.content ?? '', ...(m.tool_calls ? { tool_calls: m.tool_calls } : {}) });
     if (!m.tool_calls?.length) break;
     for (const tc of m.tool_calls) {
       calls++;
       let a = {}; try { a = JSON.parse(tc.function.arguments || '{}'); } catch {}
       let out;
       if (tc.function.name === 'list_questions') out = await api('board');
+      else if (tc.function.name === 'read_source') out = await (await fetch(`${BASE}/api/read?url=${encodeURIComponent(a.url || '')}&max=12000`)).json();
       else if (tc.function.name === 'submit_evidence') { attempts++; out = await api('evidence', { ...a, question_id: q._rcpId, actor: 'agent' }); out = out.evidence ? { evidence_id: out.evidence.id, status: out.evidence.status, verified: out.evidence.verified, reason: out.evidence.reason, snippet: out.evidence.snippet } : out; }
       else if (tc.function.name === 'propose_answer') { out = await api('answer', { ...a, question_id: q._rcpId, actor: 'agent' }); if (out.answer) result = { status: 'pending_review', answer: out.answer.text, cites: out.answer.evidence_ids }; else result = { status: 'blocked', reason: out.reason, ...result }; }
-      msgs.push({ role: 'tool', tool_call_id: tc.id, content: JSON.stringify(out).slice(0, 4000) });
+      msgs.push({ role: 'tool', tool_call_id: tc.id, content: JSON.stringify(out ?? {}).slice(0, tc.function.name === 'read_source' ? 14000 : 4000) });
     }
     if (result.status === 'pending_review' || attempts >= 4) break;
   }
@@ -85,11 +87,11 @@ async function receipts(q) {
     rows.push({ question: q.text, control: c, receipts: r });
   }
   const n = rows.length;
-  const ctrlUnsupported = rows.filter((x) => !x.control.verified).length;          // answer shown to user with a citation that isn't on the page
+  const ctrlChecked = rows.filter((x) => ['verified','rejected','unverifiable'].includes(x.control.status)); const ctrlUnsupported = ctrlChecked.filter((x) => !x.control.verified).length;          // answer shown to user with a citation that isn't on the page
   const rcpAnswered = rows.filter((x) => x.receipts.status === 'pending_review').length;
   const rcpUnsupported = 0;                                                        // by construction: board rejects unverified cites
   const rcpAbstained = n - rcpAnswered;
-  const summary = { model: MODEL, n, control: { answered: n, unsupported_citations: ctrlUnsupported, rate: +(ctrlUnsupported / n).toFixed(2) }, receipts: { answered: rcpAnswered, unsupported_citations: rcpUnsupported, abstained_or_blocked: rcpAbstained, rate: 0 }, board: `${BASE}/?board=${BOARD}` };
+  const summary = { model: MODEL, n, control: { answered: n, citations_checked: ctrlChecked.length, unsupported_citations: ctrlUnsupported, rate: +(ctrlUnsupported / Math.max(1, ctrlChecked.length)).toFixed(2), unparseable_or_error: n - ctrlChecked.length }, receipts: { answered: rcpAnswered, unsupported_citations: rcpUnsupported, abstained: rows.filter((x) => x.receipts.status === 'no_answer' || x.receipts.status === 'blocked').length, harness_errors: rows.filter((x) => x.receipts.status === 'error').length, rate: 0 }, board: `${BASE}/?board=${BOARD}` };
   console.log('\n' + JSON.stringify(summary, null, 2));
   fs.mkdirSync(new URL('../results/', import.meta.url), { recursive: true });
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');

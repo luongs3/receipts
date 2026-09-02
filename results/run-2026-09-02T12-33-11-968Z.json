@@ -1,0 +1,376 @@
+{
+ "summary": {
+  "model": "openai/gpt-oss-120b",
+  "n": 20,
+  "control": {
+   "answered": 20,
+   "citations_checked": 19,
+   "unsupported_citations": 19,
+   "rate": 1,
+   "unparseable_or_error": 1
+  },
+  "receipts": {
+   "answered": 9,
+   "unsupported_citations": 0,
+   "abstained": 11,
+   "harness_errors": 0,
+   "rate": 0
+  },
+  "board": "http://127.0.0.1:8806/?board=harness_mtk2i8v4"
+ },
+ "rows": [
+  {
+   "question": "Does Node.js 22 ship with a built-in WebSocket client?",
+   "control": {
+    "answer": "Yes—starting with Node.js 22, the WebSocket API is stable and available globally, so you can use a built‑in WebSocket client without external libraries.",
+    "url": "https://nodejs.org/en/blog/release/v22.0.0/",
+    "quote": "The WebSocket API is now stable and can be used without any external dependencies, providing a built‑in client and server implementation.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "Yes—Node.js 22 ships with a built‑in WebSocket client that is enabled by default.",
+    "cites": [
+     "ev_8fd9bd"
+    ],
+    "attempts": 1,
+    "calls": 12
+   }
+  },
+  {
+   "question": "What Chrome flag enables WebMCP for local testing?",
+   "control": {
+    "answer": "The Chrome flag is “Enable WebMCP”, which can be turned on at chrome://flags/#enable-webmcp for local testing.",
+    "url": "https://developer.chrome.com/blog/webmcp",
+    "quote": "To test locally, enable the “Enable WebMCP” flag at chrome://flags/#enable-webmcp.",
+    "status": "unverifiable",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 14
+   }
+  },
+  {
+   "question": "Is the MIT License OSI-approved?",
+   "control": {
+    "answer": "Yes, the MIT License is an OSI‑approved open source license.",
+    "url": "https://opensource.org/licenses/MIT",
+    "quote": "The MIT License is an OSI‑approved license.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.25
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 2
+   }
+  },
+  {
+   "question": "Which Python version first shipped the match statement (structural pattern matching)?",
+   "control": {
+    "answer": "The match statement was first introduced in Python 3.10.",
+    "url": "https://docs.python.org/3/whatsnew/3.10.html",
+    "quote": "Structural pattern matching (PEP 634, 635, 636) is introduced, using the new match and case statements.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.44
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "The match statement was first introduced in Python 3.10.",
+    "cites": [
+     "ev_3c9d94"
+    ],
+    "attempts": 1,
+    "calls": 4
+   }
+  },
+  {
+   "question": "Does Go 1.22 change the semantics of loop variables in for loops?",
+   "control": {
+    "answer": "Yes—starting with Go 1.22, the loop variable in a for‑range loop is a new variable each iteration when it is captured by a closure.",
+    "url": "https://go.dev/doc/go1.22",
+    "quote": "The loop variable in a for‑range loop is now a new variable each iteration when the loop variable is captured by a closure.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.29
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "Yes. Starting with Go 1.22 the language resolves the long‑standing “for” loop gotcha by changing the semantics of loop variables so that each iteration gets its own copy, eliminating accidental sharing across goroutine closures.",
+    "cites": [
+     "ev_da2804"
+    ],
+    "attempts": 1,
+    "calls": 3
+   }
+  },
+  {
+   "question": "What is the default port that PostgreSQL listens on?",
+   "control": {
+    "answer": "PostgreSQL listens on port 5432 by default.",
+    "url": "https://www.postgresql.org/docs/current/runtime-config-connection.html",
+    "quote": "The default port number is 5432, which is the standard port for PostgreSQL server connections.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.4
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "PostgreSQL listens on TCP port 5432 by default.",
+    "cites": [
+     "ev_4b4747"
+    ],
+    "attempts": 1,
+    "calls": 3
+   }
+  },
+  {
+   "question": "Which HTTP status code does RFC 9110 define for 'Too Many Requests'?",
+   "control": {
+    "answer": "RFC 9110 defines the HTTP status code 429 for the ‘Too Many Requests’ condition.",
+    "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "quote": "429 Too Many Requests – The user has sent too many requests in a given amount of time.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.29
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 1,
+    "calls": 15
+   }
+  },
+  {
+   "question": "Does Rust have a garbage collector?",
+   "control": {
+    "answer": "No, Rust does not have a garbage collector; it manages memory through its ownership system and compile‑time checks.",
+    "url": "https://www.rust-lang.org/faq#does-rust-have-a-garbage-collector",
+    "quote": "Rust does not have a garbage collector; it uses a system of ownership with compile‑time checks to manage memory.",
+    "status": "unverifiable",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "No, Rust does not have a garbage collector; it manages memory through its ownership system instead of GC.",
+    "cites": [
+     "ev_453913"
+    ],
+    "attempts": 1,
+    "calls": 4
+   }
+  },
+  {
+   "question": "What is the maximum length of a Bluesky (AT Protocol) post in graphemes?",
+   "control": {
+    "answer": "A Bluesky post can contain up to 300 Unicode grapheme clusters.",
+    "url": "https://atproto.com/specs/record-types",
+    "quote": "The text field of a post is limited to 300 Unicode grapheme clusters (i.e., 300 graphemes).",
+    "status": "unverifiable",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 14
+   }
+  },
+  {
+   "question": "Does Deno 2 support importing npm packages?",
+   "control": {
+    "answer": "Yes—Deno 2 adds stable npm specifier support, so you can import packages from the npm registry directly.",
+    "url": "https://deno.com/blog/v2.0.0",
+    "quote": "npm specifiers are now stable, letting you import any npm package directly in Deno.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.07
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 14
+   }
+  },
+  {
+   "question": "Which company originally created Kubernetes?",
+   "control": {
+    "answer": "Kubernetes was originally created by Google.",
+    "url": "https://en.wikipedia.org/wiki/Kubernetes",
+    "quote": "Kubernetes was originally designed by Google, and is now maintained by the Cloud Native Computing Foundation.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.5
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "Kubernetes was originally created by Google.",
+    "cites": [
+     "ev_50f1ea"
+    ],
+    "attempts": 1,
+    "calls": 12
+   }
+  },
+  {
+   "question": "Does SQLite support the JSONB storage format?",
+   "control": {
+    "answer": "No, SQLite does not have a native JSONB storage format; it stores JSON data as TEXT and provides JSON functions via the JSON1 extension.",
+    "url": "https://www.sqlite.org/json1.html",
+    "quote": "JSON values are stored as TEXT in SQLite.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.5
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "Yes. Starting with SQLite version 3.45.0 (released 2024‑01‑15), SQLite can store its internal JSON parse‑tree as a BLOB in a format called JSONB.",
+    "cites": [
+     "ev_5a05ae"
+    ],
+    "attempts": 1,
+    "calls": 3
+   }
+  },
+  {
+   "question": "What year was the first version of the HTML5 specification published as a W3C Recommendation?",
+   "control": {
+    "answer": "The first version of the HTML5 specification was published as a W3C Recommendation in 2014.",
+    "url": "https://www.w3.org/2014/10/html5-recommendation",
+    "quote": "The W3C today announced that HTML5 is now a W3C Recommendation.",
+    "status": "unverifiable",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "The first HTML5 specification was published as a W3C Recommendation on 28 October 2014.",
+    "cites": [
+     "ev_8e5bfb"
+    ],
+    "attempts": 1,
+    "calls": 4
+   }
+  },
+  {
+   "question": "Is Zig's standard library licensed under MIT?",
+   "control": {
+    "answer": null,
+    "verified": false,
+    "status": "unparseable"
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 1,
+    "calls": 9
+   }
+  },
+  {
+   "question": "What is the default block gas limit target on Ethereum mainnet after the Dencun upgrade?",
+   "control": {
+    "answer": "After the Dencun upgrade the default target for Ethereum mainnet’s block gas limit is set to 30 million gas.",
+    "url": "https://ethereum.org/en/upgrades/dencun/",
+    "quote": "The default target for the block gas limit on mainnet after Dencun is 30 million gas.",
+    "status": "unverifiable",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 14
+   }
+  },
+  {
+   "question": "Does Cloudflare Workers support the WebSocket API?",
+   "control": {
+    "answer": "Yes—Cloudflare Workers include a built‑in WebSocket API that lets a worker accept and create WebSocket connections.",
+    "url": "https://developers.cloudflare.com/workers/runtime-apis/websocket/",
+    "quote": "Workers can accept and initiate WebSocket connections using the WebSocket API, which provides a WebSocketPair class for creating bidirectional streams.",
+    "status": "unverifiable",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 14
+   }
+  },
+  {
+   "question": "Which version of TypeScript introduced the 'satisfies' operator?",
+   "control": {
+    "answer": "The 'satisfies' operator was introduced in TypeScript version 4.9.",
+    "url": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html",
+    "quote": "TypeScript 4.9 adds a new satisfies operator that lets you validate that a value matches a type without changing its type.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.5
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 14
+   }
+  },
+  {
+   "question": "Does Docker Compose v2 require the 'version' key in compose files?",
+   "control": {
+    "answer": "No, Docker Compose v2 does not require a 'version' key; the field is optional and ignored by the engine.",
+    "url": "https://docs.docker.com/compose/compose-file/",
+    "quote": "The version field is optional and is ignored by Docker Compose.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.36
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 0,
+    "calls": 14
+   }
+  },
+  {
+   "question": "What is the maximum size of a single DynamoDB item?",
+   "control": {
+    "answer": "A single DynamoDB item can be up to 400 KB in size, including all attribute names and values.",
+    "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html",
+    "quote": "Each item can be up to 400 KB in size, including attribute names and values.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0
+   },
+   "receipts": {
+    "status": "pending_review",
+    "answer": "A single DynamoDB item can be up to 400 KB in size.",
+    "cites": [
+     "ev_9b4272"
+    ],
+    "attempts": 1,
+    "calls": 13
+   }
+  },
+  {
+   "question": "Is WebGPU supported in Firefox stable on Windows?",
+   "control": {
+    "answer": "Yes—WebGPU is supported in the Firefox stable release on Windows (it has been enabled by default since Firefox 113).",
+    "url": "https://www.mozilla.org/en-US/firefox/113.0/releasenotes/",
+    "quote": "WebGPU is now enabled by default on Windows, macOS, and Linux.",
+    "status": "rejected",
+    "verified": false,
+    "similarity": 0.27
+   },
+   "receipts": {
+    "status": "no_answer",
+    "attempts": 1,
+    "calls": 10
+   }
+  }
+ ]
+}

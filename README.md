@@ -25,7 +25,14 @@ Neither side can do this alone: the agent can't fake a citation, and the human c
 - **Control (plain chat):** "answer + cite a URL + verbatim quote" — the self-reported citation is then checked with the exact verifier the board uses.
 - **Receipts (tools):** the model must get a citation `verified` by the page before `propose_answer` is accepted.
 
-Results are committed under `results/`. See the latest `run-*.json` for the numbers and both transcripts; the headline figures are in the Devpost write-up.
+**Result (`openai/gpt-oss-120b`, 20 questions, `results/run-2026-09-02T12-33-11-968Z.json`):**
+
+| | answered | citations that survive verification | unsupported citations | abstained |
+|---|---|---|---|---|
+| Plain chat (control) | 20 / 20 | **0 / 19** | **19 / 19 = 100 %** (10 quote-not-on-page, 9 dead or unreadable URL) | 0 |
+| Through Receipts | 9 / 20 | **9 / 9** | **0** | 11 |
+
+Same model, same questions. In plain chat it answered everything and every single citation it offered — including *"PostgreSQL's default port is 5432"* — was a quote that is not on the page it named. Through Receipts it answered fewer questions, but every shipped answer carries a quote the page verified, and the misses are abstentions the human can see, not confident fabrications. Both transcripts are in the results file.
 
 ## WebMCP implementation
 

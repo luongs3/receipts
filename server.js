@@ -180,6 +180,18 @@ const routes = {
     if (comment && decision !== 'accept') { qn.comments?.push({ text: comment, at: Date.now() }); }
     return { ok: true, question: qn };
   }),
+  'GET /api/read': async (req, res, q) => {   // fetch+strip a source, same pipeline the verifier uses (agents read, then quote)
+    const url = q.get('url') || ''; let u; try { u = new URL(url); if (!/^https?:$/.test(u.protocol)) throw 0; } catch { return { error: 'invalid url' }; }
+    if (/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|0\.|\[::1\])/.test(u.hostname)) return { error: 'private host blocked' };
+    const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 12000);
+    try {
+      const r = await fetch(u, { signal: ctl.signal, redirect: 'follow', headers: { 'user-agent': 'Mozilla/5.0 (compatible; ReceiptsVerifier/1.0)', 'accept-language': 'en-US,en;q=0.9' } });
+      if (!r.ok) return { error: `HTTP ${r.status}` };
+      const ct = r.headers.get('content-type') || ''; const raw = (await r.text()).slice(0, 3_000_000);
+      const text = /html|xml/.test(ct) ? stripHtml(raw) : raw.replace(/\s+/g, ' ');
+      return { url: r.url, chars: text.length, text: text.slice(0, Number(q.get('max') || 12000)) };
+    } catch (e) { return { error: e.name === 'AbortError' ? 'timeout' : e.message }; } finally { clearTimeout(t); }
+  },
   'POST /api/reset': withBoard(async (b) => { const f = seed(); f.id = b.id; Object.assign(b, f); log(b, 'human', 'reset_board', {}); return { ok: true }; }),
 };
 
