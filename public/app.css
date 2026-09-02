@@ -18,7 +18,7 @@ main { display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:18px; paddin
 .status.resolved { color:var(--ok); border-color:var(--ok) } .status.answered { color:var(--warn); border-color:var(--warn) } .status.suggested { color:var(--agent); border-color:var(--agent) }
 .ev { display:flex; gap:10px; align-items:flex-start; padding:8px 10px; margin:6px 0; border-radius:8px; background:#12151b; border-left:3px solid var(--muted); font-size:13px }
 .ev.verified { border-left-color:var(--ok) } .ev.rejected { border-left-color:var(--bad) } .ev.unverifiable { border-left-color:var(--warn) }
-.ev .badge { font-weight:700; white-space:nowrap } .ev.verified .badge { color:var(--ok) } .ev.rejected .badge { color:var(--bad) } .ev.unverifiable .badge { color:var(--warn) }
+.ev .badge { font-weight:700; white-space:nowrap; min-width:132px } .ev.verified .badge { color:var(--ok) } .ev.rejected .badge { color:var(--bad) } .ev.unverifiable .badge { color:var(--warn) }
 .ev .quote { color:#cfd3dc; font-style:italic } .ev .meta { color:var(--muted); font-size:12px; word-break:break-all } .ev .snippet { color:var(--muted); font-size:12px; margin-top:3px }
 .an { margin:8px 0 4px; padding:10px 12px; border-radius:8px; background:#141b17; border:1px solid #1f3a2b } .an.rejected { background:#1b1416; border-color:#3a1f24; text-decoration:line-through; color:var(--muted) } .an.accepted { border-color:var(--ok) }
 .an .cites { font-size:12px; color:var(--muted); font-family:ui-monospace, monospace } .an .row { display:flex; gap:8px; margin-top:8px; align-items:center }
@@ -32,3 +32,5 @@ main { display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:18px; paddin
 .tools { margin-top:12px; font-size:12.5px } .tools li { margin:4px 0; font-family:ui-monospace, monospace; color:var(--muted) } .tools code { color:var(--txt) }
 footer { padding:14px 20px 28px; color:var(--muted); font-size:13px; border-top:1px solid var(--line) } footer code { background:#1c2029; padding:1px 5px; border-radius:4px } footer a { color:var(--agent) }
 .empty { color:var(--muted); padding:24px; text-align:center; border:1px dashed var(--line); border-radius:12px }
+
+.cmt { background:var(--bg); border:1px solid var(--line); color:var(--txt); border-radius:8px; padding:6px 10px; font:inherit; font-size:13px }
